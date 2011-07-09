@@ -53,12 +53,15 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Invokables\Set.cs" />
+    <Compile Include="Invokables\AsquellAttributes.cs" />
+    <Compile Include="Invokables\MemoryAccess.cs" />
     <Compile Include="MemoryBlock.cs" />
     <Compile Include="Objects\AsquellObj.cs" />
     <Compile Include="Objects\NumericObj.cs" />
     <Compile Include="Parser\ParsedCommand.cs" />
     <Compile Include="Parser\CodeParser.cs" />
+    <Compile Include="Parser\ReflectedClass.cs" />
+    <Compile Include="Parser\ReflectedCommands.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

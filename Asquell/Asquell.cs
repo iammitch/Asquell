@@ -12,6 +12,7 @@ namespace Asquell
     {
         private string[] _script;
         private MemoryBlock _memory;
+        private ReflectedCommands _reflected;
         public Asquell(string[] script)
         {
             _script = script;
@@ -31,10 +32,13 @@ namespace Asquell
         {
             List<ParsedCommand> commands = CodeParser.ParseScript(_script);
             _memory = new MemoryBlock();
+            _reflected = new ReflectedCommands();
+
+            _reflected.Embed(typeof(Invokables.MemoryAccess));
 
             for (int i = 0; i < commands.Count; i++)
             {
-                commands[i].Evaluate(_memory);
+                commands[i].Evaluate(_memory,_reflected);
             }
         }
     }

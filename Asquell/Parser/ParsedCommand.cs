@@ -9,20 +9,36 @@ namespace Asquell.Parser
 {
     public class ParsedCommand
     {
-        private string _name;
+        private string _class;
+        private string _method;
         private List<AsquellObj> _args;
         public ParsedCommand(string name, List<string> args, int rowNum)
         {
-            _name = name;
+            int classMethodSep = name.IndexOf('.');
+            if (classMethodSep==-1)
+            {
+                _class = name;
+                _method = "AsquellReflection";
+            }
+            else
+            {
+                _class = name.Substring(0, classMethodSep);
+                _method = name.Substring(classMethodSep);
+            }
+
             _args = new List<AsquellObj>(args.Count);
             for (int i = 0; i < args.Count; i++)
             {
                 _args.Add(new AsquellObj(args[i]));
             }
         }
-        public void Evaluate(MemoryBlock memory)
+        public void Evaluate(MemoryBlock memory,ReflectedCommands reflect)
         {
             
+        }
+        public override string ToString()
+        {
+            return _class + "." + _method + "("+_args.Count+" Args)";
         }
     }
 }

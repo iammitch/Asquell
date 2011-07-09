@@ -21,7 +21,13 @@ namespace Asquell.Parser
             bool success = false;
             if (!_opToClass.ContainsKey(type.Name)&&type.IsClass&&type.IsPublic)
             {
-                _opToClass[type.Name] = new ReflectedClass(type);
+                string embedName = type.Name;
+                AsquellClass[] attr = (AsquellClass[])type.GetCustomAttributes(typeof(AsquellClass),true);
+                
+                if (attr.Length == 1 && attr[0].AccessibleName != null)
+                    embedName = attr[0].AccessibleName;
+
+                _opToClass[embedName] = new ReflectedClass(type);
             }
             return success;
         }

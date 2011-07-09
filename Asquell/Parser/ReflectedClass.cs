@@ -6,6 +6,8 @@ using System.Text;
 using Asquell.Objects;
 using System.Reflection;
 
+using Asquell.Invokables;
+
 namespace Asquell.Parser
 {
     public class ReflectedClass
@@ -16,12 +18,19 @@ namespace Asquell.Parser
         {
             _type = type;
             _usableMethods = new Dictionary<string, MethodInfo>();
+
+            AsquellMethod[] attr;
+            
             MethodInfo[] methods = type.GetMethods(BindingFlags.Public | BindingFlags.Static);
             ParameterInfo[] pinfo;
             bool allowedMethod;
             for (int i = 0; i < methods.Length; i++)
             {
                 allowedMethod = true;
+                attr = (AsquellMethod[])methods[i].GetCustomAttributes(typeof(AsquellMethod), true);
+                
+                //TODO: Continue the reading of method attributes to see if they are allowed to be called from scripting
+
                 pinfo = methods[i].GetParameters();
                 for (int i2 = 0; i2 < pinfo.Length; i2++)
                 {
