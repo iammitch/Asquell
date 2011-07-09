@@ -23,7 +23,7 @@ namespace Asquell.Parser
             else
             {
                 _class = name.Substring(0, classMethodSep);
-                _method = name.Substring(classMethodSep);
+                _method = name.Substring(classMethodSep+1);
             }
 
             _args = new List<AsquellObj>(args.Count);
@@ -34,7 +34,7 @@ namespace Asquell.Parser
         }
         public void Evaluate(MemoryBlock memory,ReflectedCommands reflect)
         {
-            
+            reflect.CallReflection(_class, _method, memory, _args.ToArray());
         }
         public override string ToString()
         {

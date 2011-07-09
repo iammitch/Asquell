@@ -31,12 +31,11 @@ namespace Asquell.Parser
             }
             return success;
         }
-        public bool CallReflection(string embedName, string methodName, params AsquellObj[] args)
+        public bool CallReflection(string embedName, string methodName, MemoryBlock block, params AsquellObj[] args)
         {
             if (_opToClass.ContainsKey(embedName))
             {
-                _opToClass[embedName].DoReflection(methodName, args);
-                return true;
+                return _opToClass[embedName].DoReflection(methodName, args, block);
             }
             return false;
         }

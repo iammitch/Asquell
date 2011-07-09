@@ -19,38 +19,85 @@ namespace Asquell.Parser
             _type = type;
             _usableMethods = new Dictionary<string, MethodInfo>();
 
-            AsquellMethod[] attr;
-            
             MethodInfo[] methods = type.GetMethods(BindingFlags.Public | BindingFlags.Static);
-            ParameterInfo[] pinfo;
-            bool allowedMethod;
             for (int i = 0; i < methods.Length; i++)
             {
-                allowedMethod = true;
-                attr = (AsquellMethod[])methods[i].GetCustomAttributes(typeof(AsquellMethod), true);
-                
-                //TODO: Continue the reading of method attributes to see if they are allowed to be called from scripting
-
-                pinfo = methods[i].GetParameters();
-                for (int i2 = 0; i2 < pinfo.Length; i2++)
-                {
-                    if (pinfo[i2].IsOut||pinfo[i2].ParameterType != typeof(AsquellObj))
-                    {
-                        allowedMethod = false; break;
-                    }
-                }
-                if (allowedMethod)
-                    _usableMethods.Add(methods[i].Name,methods[i]);
+                if (paramsMeetAttributes(methods[i]))
+                    _usableMethods.Add(getMethodAccessibleName(methods[i]),methods[i]);
             }
         }
-        public bool DoReflection(string name, AsquellObj[] args)
+        public bool DoReflection(string name, AsquellObj[] args, MemoryBlock block)
         {
             if (_usableMethods.ContainsKey(name))
             {
-                _usableMethods[name].Invoke(null, args);
+                MethodInfo m = _usableMethods[name];
+                int argCount = args.Length;
+
+                if (getMethodAttr(m).NoMemoryBlock == false)
+                    argCount++;
+
+                //Don't want to call a method that will throw a C# error
+                if (m.GetParameters().Length!=argCount)
+                    return false;
+
+                object[] methodArgs = new object[argCount];
+                
+                if (args.Length < argCount)
+                { methodArgs[0] = block; }
+
+                int argTrueCount = 0;
+                for (int i = (args.Length < argCount?1:0); i < methodArgs.Length; i++)
+                {
+                    methodArgs[i] = args[argTrueCount];
+                    argTrueCount++;
+                }
+
+                m.Invoke(null, methodArgs);
+
                 return true;
             }
             return false;
+        }
+        private AsquellMethod getMethodAttr(MethodInfo method)
+        {
+            AsquellMethod[] attr = (AsquellMethod[])method.GetCustomAttributes(typeof(AsquellMethod), true);
+            if (attr.Length == 1)
+            {
+                return attr[0];
+            }
+            return null;
+        }
+        private string getMethodAccessibleName(MethodInfo method)
+        {
+            AsquellMethod attr = getMethodAttr(method);
+            return (attr != null && attr.AccessibleName != null ? attr.AccessibleName : method.Name);
+        }
+        private bool paramsMeetAttributes(MethodInfo method)
+        {
+            AsquellMethod attr = getMethodAttr(method);
+            if (attr != null && attr.Exposed == true)
+            {
+                ParameterInfo[] pinfo = method.GetParameters();
+                for (int i = 0; i < pinfo.Length; i++)
+                {
+                    //Passes the MemoryBlock to the method as the first parameter
+                    if (i==0&&attr.NoMemoryBlock == false)
+                    {
+                        //False if not the first parameter
+                        if (pinfo[i].ParameterType != typeof(MemoryBlock))
+                        {
+                            return false;
+                        }
+                        continue;
+                    }
+                    //All other parameters must be of type AsquellObj
+                    if (pinfo[i].ParameterType != typeof(AsquellObj))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
     }
 }

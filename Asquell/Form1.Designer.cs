@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.listBox_MemoryObjects = new System.Windows.Forms.ListBox();
             this.propertyGrid_MemoryObj = new System.Windows.Forms.PropertyGrid();
+            this.listBox_MemoryObjects = new System.Windows.Forms.ListBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.textBox_Code = new System.Windows.Forms.TextBox();
             this.button_Execute = new System.Windows.Forms.Button();
+            this.textBox_Code = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
@@ -50,6 +50,13 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Memory Objects";
             // 
+            // propertyGrid_MemoryObj
+            // 
+            this.propertyGrid_MemoryObj.Location = new System.Drawing.Point(6, 172);
+            this.propertyGrid_MemoryObj.Name = "propertyGrid_MemoryObj";
+            this.propertyGrid_MemoryObj.Size = new System.Drawing.Size(352, 260);
+            this.propertyGrid_MemoryObj.TabIndex = 1;
+            // 
             // listBox_MemoryObjects
             // 
             this.listBox_MemoryObjects.FormattingEnabled = true;
@@ -57,13 +64,6 @@
             this.listBox_MemoryObjects.Name = "listBox_MemoryObjects";
             this.listBox_MemoryObjects.Size = new System.Drawing.Size(352, 147);
             this.listBox_MemoryObjects.TabIndex = 0;
-            // 
-            // propertyGrid_MemoryObj
-            // 
-            this.propertyGrid_MemoryObj.Location = new System.Drawing.Point(6, 172);
-            this.propertyGrid_MemoryObj.Name = "propertyGrid_MemoryObj";
-            this.propertyGrid_MemoryObj.Size = new System.Drawing.Size(352, 260);
-            this.propertyGrid_MemoryObj.TabIndex = 1;
             // 
             // groupBox2
             // 
@@ -85,14 +85,6 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Script Input";
             // 
-            // textBox_Code
-            // 
-            this.textBox_Code.Location = new System.Drawing.Point(6, 19);
-            this.textBox_Code.Multiline = true;
-            this.textBox_Code.Name = "textBox_Code";
-            this.textBox_Code.Size = new System.Drawing.Size(478, 212);
-            this.textBox_Code.TabIndex = 0;
-            // 
             // button_Execute
             // 
             this.button_Execute.Location = new System.Drawing.Point(409, 237);
@@ -101,6 +93,15 @@
             this.button_Execute.TabIndex = 1;
             this.button_Execute.Text = "Execute";
             this.button_Execute.UseVisualStyleBackColor = true;
+            this.button_Execute.Click += new System.EventHandler(this.button_Execute_Click);
+            // 
+            // textBox_Code
+            // 
+            this.textBox_Code.Location = new System.Drawing.Point(6, 19);
+            this.textBox_Code.Multiline = true;
+            this.textBox_Code.Name = "textBox_Code";
+            this.textBox_Code.Size = new System.Drawing.Size(478, 212);
+            this.textBox_Code.TabIndex = 0;
             // 
             // Form1
             // 

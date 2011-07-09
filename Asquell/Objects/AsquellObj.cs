@@ -183,6 +183,7 @@ namespace Asquell.Objects
             if (!rawValue.Contains(' '))
             {
                 type = AsquellObjectType.RunTimeValue;
+                parseValue = rawValue;
             }
 
             #endregion

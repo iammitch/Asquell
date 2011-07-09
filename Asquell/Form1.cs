@@ -15,5 +15,13 @@ namespace Asquell
         {
             InitializeComponent();
         }
+
+        private void button_Execute_Click(object sender, EventArgs e)
+        {
+            Asquell scriptRuntime = new Asquell(textBox_Code.Text.Split(new string[] { Environment.NewLine },
+                StringSplitOptions.RemoveEmptyEntries));
+
+            scriptRuntime.Run();
+        }
     }
 }

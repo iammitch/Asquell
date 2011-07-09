@@ -19,9 +19,20 @@ namespace Asquell
         {
             _globals[name] = value;
         }
+        public void ModifyVariable(AsquellObj name, AsquellObj value)
+        {
+            if (name.Type == AsquellObjectType.RunTimeValue)
+                ModifyVariable(name.Value.ToString(), value);
+        }
         public AsquellObj GetVariable(string name)
         {
             return (_globals.ContainsKey(name) ? _globals[name] : null);
+        }
+        public AsquellObj GetVariable(AsquellObj name)
+        {
+            if (name.Type == AsquellObjectType.RunTimeValue)
+                return GetVariable(name.Value.ToString());
+            return null;
         }
         public bool CreateScope(string scope)
         {
