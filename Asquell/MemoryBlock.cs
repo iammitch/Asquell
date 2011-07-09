@@ -6,7 +6,7 @@ using Asquell.Objects;
 
 namespace Asquell
 {
-    class MemoryBlock
+    public class MemoryBlock
     {
         private Dictionary<string, AsquellObj> _globals;
         private Dictionary<string, MemoryBlock> _scoped;

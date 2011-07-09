@@ -20,11 +20,35 @@ namespace Asquell.Objects
     {
         private AsquellObjectType type = AsquellObjectType.Invalid;
         private string rawValue;
-        private object parseValue;
+        private object parseValue = null;
         public AsquellObj(string rawValue)
         {
             this.rawValue = rawValue;
             defineType();
+        }
+        public AsquellObj(object obj)
+        {
+            if (obj == null)
+            {
+                this.type = AsquellObjectType.Null;
+                return;
+            }
+            Type t = obj.GetType();
+            if (t == typeof(double))
+            {
+                this.parseValue = obj;
+                this.type = AsquellObjectType.Number;
+            }
+            else if (t == typeof(bool))
+            {
+                this.parseValue = obj;
+                this.type = AsquellObjectType.Boolean;
+            }
+            else if (t == typeof(string))
+            {
+                this.rawValue = obj.ToString();
+                defineType();
+            }
         }
         private int findStringEnd(string str, int start, char stringChar)
         {
@@ -162,6 +186,14 @@ namespace Asquell.Objects
             }
 
             #endregion
+        }
+        public object Value
+        {
+            get { return parseValue; }
+        }
+        public AsquellObjectType Type
+        {
+            get { return type; }
         }
     }
 }

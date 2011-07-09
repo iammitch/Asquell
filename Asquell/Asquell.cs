@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Asquell.Parser;
+using Asquell.Objects;
 
 namespace Asquell
 {
@@ -11,6 +12,7 @@ namespace Asquell
     {
         private string[] _script;
         private MemoryBlock _memory;
+        private ObjectTypeMap _typeMap;
         public Asquell(string[] script)
         {
             _script = script;
@@ -30,9 +32,13 @@ namespace Asquell
         {
             List<ParsedCommand> commands = CodeParser.ParseScript(_script);
             _memory = new MemoryBlock();
+            _typeMap = new ObjectTypeMap();
+
+            _typeMap.MapType(AsquellObjectType.Number, typeof (NumericObj));
+
             for (int i = 0; i < commands.Count; i++)
             {
-                commands[i].Evaluate(_memory);
+                commands[i].Evaluate(_memory,_typeMap);
             }
         }
     }
