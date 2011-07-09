@@ -73,5 +73,13 @@ namespace Asquell.Objects
         {
             return new NumericObj((double)a.baseObj.Value - 1);
         }
+        public override int GetHashCode()
+        {
+            return baseObj.Value.GetHashCode();
+        }
+        public override bool Equals(object obj)
+        {
+            return baseObj.Value.Equals(obj);
+        }
     }
 }

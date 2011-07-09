@@ -20,7 +20,7 @@ namespace Asquell.Parser
                 _args.Add(new AsquellObj(args[i]));
             }
         }
-        public void Evaluate(MemoryBlock memory,ObjectTypeMap typeMap)
+        public void Evaluate(MemoryBlock memory)
         {
             
         }

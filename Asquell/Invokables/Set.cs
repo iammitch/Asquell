@@ -7,9 +7,9 @@ using Asquell.Objects;
 
 namespace Asquell.Invokables
 {
-    class Set
+    static class Set
     {
-        public static void Set(AsquellObj from, string to, MemoryBlock memory)
+        public static void DoOperation(AsquellObj from, string to, MemoryBlock memory)
         {
             memory.ModifyVariable(to, from);
         }
