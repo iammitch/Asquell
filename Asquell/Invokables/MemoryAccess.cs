@@ -23,12 +23,32 @@ namespace Asquell.Invokables
         [AsquellMethod(AccessibleName = "Move", Exposed = true, NoMemoryBlock = false)]
         public static void MoveMemory(MemoryBlock memory, AsquellObj from, AsquellObj to)
         {
-            if (from.Type == AsquellObjectType.RunTimeValue && to.Type == AsquellObjectType.RunTimeValue)
+            if (from.Type == AsquellObjectType.RunTimeValue)
             {
-                AsquellObj rawValue = memory.GetRealVariable(from);
-                memory.ModifyVariable(to, rawValue);
-                memory.DeleteVariable(from);
+                if (memory.VariableInMemory(from))
+                {
+                    AsquellObj rawValue = memory.GetRealVariable(from);
+                    memory.ModifyVariable(to, rawValue);
+                    memory.DeleteVariable(from);
+                    return;
+                }
+                else
+                {
+                    throw new KeyNotFoundException("Can not find '"+from.Value.ToString()+"' in memory!");
+                }
             }
+            throw new ArgumentException("Invalid type for moving memory! First argument must be a variable!");
+        }
+        [AsquellMethod(AccessibleName = "MakeArray", Exposed = true, NoMemoryBlock = false)]
+        public static void MakeArray(MemoryBlock memory, AsquellObj to, params AsquellObj[] values)
+        {
+            if (to.Type == AsquellObjectType.RunTimeValue)
+            {
+                ArrayObj array = new ArrayObj(values);
+                memory.ModifyVariable(to, array.BaseObj);
+                return;
+            }
+            throw new ArgumentException("Invalid type for modifying memory! First argument must be a variable!");
         }
     }
 }
