@@ -47,12 +47,17 @@ namespace Asquell
             if (_commands == null)
                 Parse();
 
-            
-
             for (int i = 0; i < _commands.Count; i++)
             {
-                _commands[i].Evaluate(_memory,_reflected);
+                RunLine(i);
             }
+        }
+        public void RunLine(int lineNo)
+        {
+            if (_commands == null)
+                Parse();
+
+            _commands[lineNo].Evaluate(_memory, _reflected);
         }
         public Dictionary<string,AsquellObj> MemorySnapshot()
         {

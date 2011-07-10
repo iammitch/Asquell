@@ -35,6 +35,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button_Execute = new System.Windows.Forms.Button();
             this.textBox_Code = new System.Windows.Forms.TextBox();
+            this.button_RunLine = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
@@ -77,6 +78,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.button_RunLine);
             this.groupBox3.Controls.Add(this.button_Execute);
             this.groupBox3.Controls.Add(this.textBox_Code);
             this.groupBox3.Location = new System.Drawing.Point(12, 184);
@@ -103,6 +105,16 @@
             this.textBox_Code.Name = "textBox_Code";
             this.textBox_Code.Size = new System.Drawing.Size(478, 212);
             this.textBox_Code.TabIndex = 0;
+            // 
+            // button_RunLine
+            // 
+            this.button_RunLine.Location = new System.Drawing.Point(6, 237);
+            this.button_RunLine.Name = "button_RunLine";
+            this.button_RunLine.Size = new System.Drawing.Size(75, 23);
+            this.button_RunLine.TabIndex = 2;
+            this.button_RunLine.Text = "Run Single Line";
+            this.button_RunLine.UseVisualStyleBackColor = true;
+            this.button_RunLine.Click += new System.EventHandler(this.button_RunLine_Click);
             // 
             // Form1
             // 
@@ -132,6 +144,7 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button button_Execute;
         private System.Windows.Forms.TextBox textBox_Code;
+        private System.Windows.Forms.Button button_RunLine;
     }
 }
 
