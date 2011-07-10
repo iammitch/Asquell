@@ -37,7 +37,7 @@ namespace Asquell.Parser
                     argCount++;
 
                 //Don't want to call a method that will throw a C# error
-                if (m.GetParameters().Length!=argCount)
+                if (m.GetParameters().Length!=argCount&&!methodHasParams(m))
                     return false;
 
                 object[] methodArgs = new object[argCount];
@@ -71,6 +71,15 @@ namespace Asquell.Parser
         {
             AsquellMethod attr = getMethodAttr(method);
             return (attr != null && attr.AccessibleName != null ? attr.AccessibleName : method.Name);
+        }
+        private bool methodHasParams(MethodInfo method)
+        {
+            ParameterInfo[] pinfo = method.GetParameters();
+            return isParams(pinfo[pinfo.Length - 1]);
+        }
+        private static bool isParams(ParameterInfo param)
+        {
+            return Attribute.IsDefined(param, typeof(ParamArrayAttribute));
         }
         private bool paramsMeetAttributes(MethodInfo method)
         {

@@ -13,6 +13,7 @@ namespace Asquell
         private string[] _script;
         private MemoryBlock _memory;
         private ReflectedCommands _reflected;
+        private List<ParsedCommand> _commands = null;
         public Asquell(string[] script)
         {
             _script = script;
@@ -28,17 +29,23 @@ namespace Asquell
          * QL ListVar, QueryString
          * 
          */
+        public void Parse()
+        {
+            _commands = CodeParser.ParseScript(_script);
+        }
         public void Run()
         {
-            List<ParsedCommand> commands = CodeParser.ParseScript(_script);
+            if (_commands == null)
+                Parse();
+
             _memory = new MemoryBlock();
             _reflected = new ReflectedCommands();
 
             _reflected.Embed(typeof(Invokables.MemoryAccess));
 
-            for (int i = 0; i < commands.Count; i++)
+            for (int i = 0; i < _commands.Count; i++)
             {
-                commands[i].Evaluate(_memory,_reflected);
+                _commands[i].Evaluate(_memory,_reflected);
             }
         }
     }

@@ -34,6 +34,15 @@ namespace Asquell
                 return GetVariable(name.Value.ToString());
             return null;
         }
+        public void DeleteVariable(string name)
+        {
+            _globals.Remove(name);
+        }
+        public void DeleteVariable(AsquellObj name)
+        {
+            if (name.Type == AsquellObjectType.RunTimeValue)
+                DeleteVariable(name.Value.ToString());
+        }
         public bool CreateScope(string scope)
         {
             if (_scoped.ContainsKey(scope))
