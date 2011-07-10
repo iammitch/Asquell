@@ -56,6 +56,7 @@
     <Compile Include="Invokables\AsquellAttributes.cs" />
     <Compile Include="Invokables\MemoryAccess.cs" />
     <Compile Include="MemoryBlock.cs" />
+    <Compile Include="Objects\ArrayObj.cs" />
     <Compile Include="Objects\AsquellObj.cs" />
     <Compile Include="Objects\NumericObj.cs" />
     <Compile Include="Parser\ParsedCommand.cs" />

@@ -89,6 +89,11 @@ namespace Asquell.Parser
                 ParameterInfo[] pinfo = method.GetParameters();
                 for (int i = 0; i < pinfo.Length; i++)
                 {
+                    //Allows the params attribute on parameters
+                    if (isParams(pinfo[i]) && pinfo[i].ParameterType == typeof(AsquellObj))
+                    {
+                        continue;
+                    }
                     //Passes the MemoryBlock to the method as the first parameter
                     if (i == 0 && attr.NoMemoryBlock == false)
                     {

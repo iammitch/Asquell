@@ -17,6 +17,7 @@ namespace Asquell.Objects
             }
             baseObj = new AsquellObj(tmp);
         }
+        public ArrayObj(AsquellObj[] array) : this(new AsquellObj(array)) { }
         public ArrayObj(AsquellObj obj)
         {
             baseObj = obj;

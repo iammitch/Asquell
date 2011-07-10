@@ -42,13 +42,15 @@ namespace Asquell
         public AsquellObj GetRealVariable(AsquellObj name)
         {
             AsquellObj tmp = name;
-            AsquellObj last;
+            AsquellObj last = tmp;
             while (true)
             {
-                last = tmp;
-                tmp = GetVariable(name);
-                if (tmp != null || tmp.Type != AsquellObjectType.RunTimeValue)
+                if (tmp != null)
+                    last = tmp;
+                if (tmp==null||tmp.Type!=AsquellObjectType.RunTimeValue)
                     break;
+                
+                tmp = GetVariable(name);
             }
             return last;
         }
