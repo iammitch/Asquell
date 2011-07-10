@@ -1,6 +1,6 @@
 ﻿namespace Asquell
 {
-    partial class Form1
+    partial class FormMain
     {
         /// <summary>
         /// Required designer variable.
@@ -33,9 +33,11 @@
             this.listBox_MemoryObjects = new System.Windows.Forms.ListBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button_RunLine = new System.Windows.Forms.Button();
             this.button_Execute = new System.Windows.Forms.Button();
             this.textBox_Code = new System.Windows.Forms.TextBox();
-            this.button_RunLine = new System.Windows.Forms.Button();
+            this.textBox_lastLine = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
@@ -66,6 +68,7 @@
             this.listBox_MemoryObjects.Size = new System.Drawing.Size(352, 147);
             this.listBox_MemoryObjects.TabIndex = 0;
             this.listBox_MemoryObjects.SelectedIndexChanged += new System.EventHandler(this.listBox_MemoryObjects_SelectedIndexChanged);
+            this.listBox_MemoryObjects.DoubleClick += new System.EventHandler(this.listBox_MemoryObjects_DoubleClick);
             // 
             // groupBox2
             // 
@@ -78,6 +81,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label1);
+            this.groupBox3.Controls.Add(this.textBox_lastLine);
             this.groupBox3.Controls.Add(this.button_RunLine);
             this.groupBox3.Controls.Add(this.button_Execute);
             this.groupBox3.Controls.Add(this.textBox_Code);
@@ -87,6 +92,16 @@
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Script Input";
+            // 
+            // button_RunLine
+            // 
+            this.button_RunLine.Location = new System.Drawing.Point(6, 237);
+            this.button_RunLine.Name = "button_RunLine";
+            this.button_RunLine.Size = new System.Drawing.Size(75, 23);
+            this.button_RunLine.TabIndex = 2;
+            this.button_RunLine.Text = "Run Single Line";
+            this.button_RunLine.UseVisualStyleBackColor = true;
+            this.button_RunLine.Click += new System.EventHandler(this.button_RunLine_Click);
             // 
             // button_Execute
             // 
@@ -103,20 +118,27 @@
             this.textBox_Code.Location = new System.Drawing.Point(6, 19);
             this.textBox_Code.Multiline = true;
             this.textBox_Code.Name = "textBox_Code";
-            this.textBox_Code.Size = new System.Drawing.Size(478, 212);
+            this.textBox_Code.Size = new System.Drawing.Size(478, 186);
             this.textBox_Code.TabIndex = 0;
             // 
-            // button_RunLine
+            // textBox_lastLine
             // 
-            this.button_RunLine.Location = new System.Drawing.Point(6, 237);
-            this.button_RunLine.Name = "button_RunLine";
-            this.button_RunLine.Size = new System.Drawing.Size(75, 23);
-            this.button_RunLine.TabIndex = 2;
-            this.button_RunLine.Text = "Run Single Line";
-            this.button_RunLine.UseVisualStyleBackColor = true;
-            this.button_RunLine.Click += new System.EventHandler(this.button_RunLine_Click);
+            this.textBox_lastLine.Enabled = false;
+            this.textBox_lastLine.Location = new System.Drawing.Point(90, 211);
+            this.textBox_lastLine.Name = "textBox_lastLine";
+            this.textBox_lastLine.Size = new System.Drawing.Size(394, 20);
+            this.textBox_lastLine.TabIndex = 3;
             // 
-            // Form1
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 214);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(78, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Line Executed:";
+            // 
+            // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -126,7 +148,7 @@
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "FormMain";
             this.Text = "Asquell Test Platform";
             this.groupBox1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -145,6 +167,8 @@
         private System.Windows.Forms.Button button_Execute;
         private System.Windows.Forms.TextBox textBox_Code;
         private System.Windows.Forms.Button button_RunLine;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBox_lastLine;
     }
 }
 
