@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using Asquell.Objects;
+using System.IO;
 
 namespace Asquell
 {
@@ -101,6 +102,31 @@ namespace Asquell
                 string key = (string)listBox_MemoryObjects.Items[listBox_MemoryObjects.SelectedIndex];
                 if (key != null)
                     new GUI.FormMemoryDetail(_mem[key]).ShowDialog();
+            }
+        }
+
+        private void button_loadScript_Click(object sender, EventArgs e)
+        {
+            DialogResult res = openFileDialog_LoadScript.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                textBox_Code.Text = File.ReadAllText(openFileDialog_LoadScript.FileName);
+            }
+        }
+
+        private void button_saveScript_Click(object sender, EventArgs e)
+        {
+            DialogResult res = saveFileDialog_SaveScript.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                try
+                {
+                    File.WriteAllText(saveFileDialog_SaveScript.FileName, textBox_Code.Text);
+                }
+                catch (IOException ioe)
+                {
+                    MessageBox.Show(ioe.Message, "Script Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }
