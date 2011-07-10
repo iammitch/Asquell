@@ -10,10 +10,15 @@ namespace Asquell.Invokables
     [AsquellClass(AccessibleName="MEM")]
     public static class MemoryAccess
     {
-        [AsquellMethod(AccessibleName="Set",Exposed=true,NoMemoryBlock=false)]
+        [AsquellMethod(AccessibleName = "Set", Exposed = true, NoMemoryBlock = false)]
         public static void SetMemory(MemoryBlock memory, AsquellObj from, AsquellObj to)
         {
             memory.ModifyVariable(to, from);
+        }
+        [AsquellMethod(AccessibleName = "Delete", Exposed = true, NoMemoryBlock = false)]
+        public static void SetMemory(MemoryBlock memory, AsquellObj block)
+        {
+            memory.DeleteVariable(block);
         }
     }
 }

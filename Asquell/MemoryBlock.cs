@@ -23,25 +23,59 @@ namespace Asquell
         {
             if (name.Type == AsquellObjectType.RunTimeValue)
                 ModifyVariable(name.Value.ToString(), value);
+            else
+                throw new ArgumentException("Can not write to memory value where name is type '"+name.Type.ToString()+"'!");
         }
         public AsquellObj GetVariable(string name)
         {
+            if (!_globals.ContainsKey(name))
+                throw new KeyNotFoundException("Can not read from memory where name is '" + name + "'! Does not exist in current memory context!");
             return (_globals.ContainsKey(name) ? _globals[name] : null);
         }
         public AsquellObj GetVariable(AsquellObj name)
         {
             if (name.Type == AsquellObjectType.RunTimeValue)
                 return GetVariable(name.Value.ToString());
-            return null;
+            else
+                throw new ArgumentException("Can not read from memory value where name is type '" + name.Type.ToString() + "'!");
+        }
+        public AsquellObj GetRealVariable(AsquellObj name)
+        {
+            AsquellObj tmp = name;
+            AsquellObj last;
+            while (true)
+            {
+                last = tmp;
+                tmp = GetVariable(name);
+                if (tmp != null || tmp.Type != AsquellObjectType.RunTimeValue)
+                    break;
+            }
+            return last;
         }
         public void DeleteVariable(string name)
         {
-            _globals.Remove(name);
+            if (_globals.ContainsKey(name))
+                _globals.Remove(name);
+            else
+                throw new KeyNotFoundException("Can not delete from memory where name is '" + name + "'! Does not exist in current memory context!");
         }
         public void DeleteVariable(AsquellObj name)
         {
             if (name.Type == AsquellObjectType.RunTimeValue)
                 DeleteVariable(name.Value.ToString());
+            else
+                throw new ArgumentException("Can not delete from memory value where name is type '" + name.Type.ToString() + "'!");
+        }
+        public bool VariableInMemory(string name)
+        {
+            return _globals.ContainsKey(name);
+        }
+        public bool VariableInMemory(AsquellObj name)
+        {
+            if (name.Type == AsquellObjectType.RunTimeValue)
+                return VariableInMemory(name.Value.ToString());
+            else
+                throw new ArgumentException("Can not read from memory value where name is type '" + name.Type.ToString() + "'!");
         }
         public bool CreateScope(string scope)
         {
