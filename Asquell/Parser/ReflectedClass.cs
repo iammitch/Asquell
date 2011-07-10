@@ -13,7 +13,7 @@ namespace Asquell.Parser
     public class ReflectedClass
     {
         private Type _type;
-        private Dictionary<string,MethodInfo> _usableMethods;
+        private Dictionary<string, MethodInfo> _usableMethods;
         public ReflectedClass(Type type)
         {
             _type = type;
@@ -23,7 +23,7 @@ namespace Asquell.Parser
             for (int i = 0; i < methods.Length; i++)
             {
                 if (paramsMeetAttributes(methods[i]))
-                    _usableMethods.Add(getMethodAccessibleName(methods[i]),methods[i]);
+                    _usableMethods.Add(getMethodAccessibleName(methods[i]), methods[i]);
             }
         }
         public bool DoReflection(string name, AsquellObj[] args, MemoryBlock block)
@@ -37,16 +37,16 @@ namespace Asquell.Parser
                     argCount++;
 
                 //Don't want to call a method that will throw a C# error
-                if (m.GetParameters().Length!=argCount&&!methodHasParams(m))
+                if (m.GetParameters().Length != argCount && !methodHasParams(m))
                     return false;
 
                 object[] methodArgs = new object[argCount];
-                
+
                 if (args.Length < argCount)
                 { methodArgs[0] = block; }
 
                 int argTrueCount = 0;
-                for (int i = (args.Length < argCount?1:0); i < methodArgs.Length; i++)
+                for (int i = (args.Length < argCount ? 1 : 0); i < methodArgs.Length; i++)
                 {
                     methodArgs[i] = args[argTrueCount];
                     argTrueCount++;
@@ -90,7 +90,7 @@ namespace Asquell.Parser
                 for (int i = 0; i < pinfo.Length; i++)
                 {
                     //Passes the MemoryBlock to the method as the first parameter
-                    if (i==0&&attr.NoMemoryBlock == false)
+                    if (i == 0 && attr.NoMemoryBlock == false)
                     {
                         //False if not the first parameter
                         if (pinfo[i].ParameterType != typeof(MemoryBlock))
@@ -107,6 +107,23 @@ namespace Asquell.Parser
                 }
             }
             return true;
+        }
+        public bool IsType(Type type)
+        {
+            return (this._type.Equals(type));
+        }
+        public bool ContainsMatchingMethods(ReflectedClass reflected)
+        {
+            foreach (string key in reflected._usableMethods.Keys)
+            {
+                if (_usableMethods.ContainsKey(key))
+                    return true;
+            }
+            return false;
+        }
+        public bool ContainsMethod(string method)
+        {
+            return _usableMethods.ContainsKey(method);
         }
     }
 }

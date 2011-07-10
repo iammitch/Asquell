@@ -17,8 +17,8 @@ namespace Asquell.Parser
             int classMethodSep = name.IndexOf('.');
             if (classMethodSep==-1)
             {
-                _class = name;
-                _method = "AsquellReflection";
+                _class = "Global";
+                _method = name;
             }
             else
             {

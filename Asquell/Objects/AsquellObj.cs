@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using System.Text.RegularExpressions;
+
 namespace Asquell.Objects
 {
     public enum AsquellObjectType
@@ -14,6 +16,7 @@ namespace Asquell.Objects
         RunTimeValue = 4,
         MathsOperator = 5,
         BooleanOperator = 6,
+        Array = 7,
         Invalid = 99
     }
     public class AsquellObj
@@ -64,6 +67,11 @@ namespace Asquell.Objects
                 else
                     return end;
             }
+        }
+        public static bool AllowedVariableName(string name)
+        {
+            Regex reg = new Regex("^[a-zA-Z0-9]+$");
+            return reg.IsMatch(name);
         }
         private void defineType()
         {
@@ -180,7 +188,7 @@ namespace Asquell.Objects
 
             #region Type Runtime Value
 
-            if (!rawValue.Contains(' '))
+            if (AllowedVariableName(rawValue))
             {
                 type = AsquellObjectType.RunTimeValue;
                 parseValue = rawValue;
