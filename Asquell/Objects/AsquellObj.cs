@@ -52,6 +52,11 @@ namespace Asquell.Objects
                 this.rawValue = obj.ToString();
                 defineType();
             }
+            else if (t == typeof(object[]))
+            {
+                this.parseValue = obj;
+                this.type = AsquellObjectType.Array;
+            }
         }
         private int findStringEnd(string str, int start, char stringChar)
         {
