@@ -17,6 +17,11 @@ namespace Asquell
         public Asquell(string[] script)
         {
             _script = script;
+            _memory = new MemoryBlock();
+            _reflected = new ReflectedCommands();
+            //Default Embedded Types
+            _reflected.Embed(typeof(Invokables.MemoryAccess));
+            _reflected.Embed(typeof(Invokables.MathCore));
         }
         //TODO: Threading, LINQ/SQL-Like Statements
         /*
@@ -29,6 +34,10 @@ namespace Asquell
          * QL ListVar, QueryString
          * 
          */
+        public void Embed(Type type)
+        {
+            _reflected.Embed(type);
+        }
         public void Parse()
         {
             _commands = CodeParser.ParseScript(_script);
@@ -38,15 +47,16 @@ namespace Asquell
             if (_commands == null)
                 Parse();
 
-            _memory = new MemoryBlock();
-            _reflected = new ReflectedCommands();
-
-            _reflected.Embed(typeof(Invokables.MemoryAccess));
+            
 
             for (int i = 0; i < _commands.Count; i++)
             {
                 _commands[i].Evaluate(_memory,_reflected);
             }
+        }
+        public Dictionary<string,AsquellObj> MemorySnapshot()
+        {
+            return _memory.GlobalMemory;
         }
     }
 }

@@ -64,6 +64,7 @@
             this.listBox_MemoryObjects.Name = "listBox_MemoryObjects";
             this.listBox_MemoryObjects.Size = new System.Drawing.Size(352, 147);
             this.listBox_MemoryObjects.TabIndex = 0;
+            this.listBox_MemoryObjects.SelectedIndexChanged += new System.EventHandler(this.listBox_MemoryObjects_SelectedIndexChanged);
             // 
             // groupBox2
             // 

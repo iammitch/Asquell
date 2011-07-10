@@ -54,6 +54,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Invokables\AsquellAttributes.cs" />
+    <Compile Include="Invokables\MathCore.cs" />
     <Compile Include="Invokables\MemoryAccess.cs" />
     <Compile Include="MemoryBlock.cs" />
     <Compile Include="Objects\ArrayObj.cs" />

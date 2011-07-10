@@ -209,5 +209,9 @@ namespace Asquell.Objects
         {
             get { return type; }
         }
+        public override string ToString()
+        {
+            return "(" + type.ToString() + ") " + Value.ToString();
+        }
     }
 }

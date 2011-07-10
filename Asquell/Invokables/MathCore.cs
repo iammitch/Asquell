@@ -79,7 +79,7 @@ namespace Asquell.Invokables
             throw new ArgumentException("Invalid type for power!");
         }
         [AsquellMethod(AccessibleName = "Mod", Exposed = true, NoMemoryBlock = false)]
-        public static void PowerNumbers(MemoryBlock memory, AsquellObj a, AsquellObj b, AsquellObj storeResult)
+        public static void ModuloNumbers(MemoryBlock memory, AsquellObj a, AsquellObj b, AsquellObj storeResult)
         {
             NumericObj NumA = getNumericObj(a, memory);
             NumericObj NumB = getNumericObj(b, memory);

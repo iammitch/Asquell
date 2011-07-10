@@ -92,5 +92,9 @@ namespace Asquell
         {
             return (_scoped.ContainsKey(scope) ? _scoped[scope] : null);
         }
+        public Dictionary<string, AsquellObj> GlobalMemory
+        {
+            get { return _globals; }
+        }
     }
 }
