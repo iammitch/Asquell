@@ -17,6 +17,10 @@ namespace Asquell.Objects
         {
             get { return (double)baseObj.Value; }
         }
+        public AsquellObj BaseObj
+        {
+            get { return baseObj; }
+        }
         public static NumericObj operator +(NumericObj a, NumericObj b)
         {
             return new NumericObj((double)a.baseObj.Value + (double)b.baseObj.Value);
