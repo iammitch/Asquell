@@ -40,7 +40,7 @@ namespace Asquell.Parser
                 if (m.GetParameters().Length != argCount && !methodHasParams(m))
                     return false;
 
-                object[] methodArgs = new object[argCount];
+                object[] methodArgs = new object[m.GetParameters().Length];
 
                 if (args.Length < argCount)
                 { methodArgs[0] = block; }
@@ -48,7 +48,12 @@ namespace Asquell.Parser
                 int argTrueCount = 0;
                 for (int i = (args.Length < argCount ? 1 : 0); i < methodArgs.Length; i++)
                 {
-                    methodArgs[i] = args[argTrueCount];
+                    if (i + 1 == methodArgs.Length && methodHasParams(m))
+                    {
+                        methodArgs[i] = arrayOfArgs(args, argTrueCount);
+                    }
+                    else
+                        methodArgs[i] = args[argTrueCount];
                     argTrueCount++;
                 }
 
@@ -57,6 +62,16 @@ namespace Asquell.Parser
                 return true;
             }
             return false;
+        }
+
+        private object arrayOfArgs(AsquellObj[] args, int argCount)
+        {
+            List<AsquellObj> tmp = new List<AsquellObj>();
+            for (int i = argCount; i < args.Length; i++)
+            {
+                tmp.Add(args[i]);
+            }
+            return tmp.ToArray();
         }
         private AsquellMethod getMethodAttr(MethodInfo method)
         {
@@ -90,7 +105,7 @@ namespace Asquell.Parser
                 for (int i = 0; i < pinfo.Length; i++)
                 {
                     //Allows the params attribute on parameters
-                    if (isParams(pinfo[i]) && pinfo[i].ParameterType == typeof(AsquellObj))
+                    if (isParams(pinfo[i]) && pinfo[i].ParameterType == typeof(AsquellObj[]))
                     {
                         continue;
                     }

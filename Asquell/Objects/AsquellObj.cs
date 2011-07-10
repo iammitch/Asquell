@@ -52,7 +52,7 @@ namespace Asquell.Objects
                 this.rawValue = obj.ToString();
                 defineType();
             }
-            else if (t == typeof(object[]))
+            else if (t == typeof(AsquellObj[]))
             {
                 this.parseValue = obj;
                 this.type = AsquellObjectType.Array;

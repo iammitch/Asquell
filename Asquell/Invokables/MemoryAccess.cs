@@ -11,7 +11,7 @@ namespace Asquell.Invokables
     public static class MemoryAccess
     {
         [AsquellMethod(AccessibleName = "Set", Exposed = true, NoMemoryBlock = false)]
-        public static void SetMemory(MemoryBlock memory, AsquellObj from, AsquellObj to)
+        public static void SetMemory(MemoryBlock memory, AsquellObj to, AsquellObj from)
         {
             memory.ModifyVariable(to, from);
         }
@@ -21,7 +21,7 @@ namespace Asquell.Invokables
             memory.DeleteVariable(block);
         }
         [AsquellMethod(AccessibleName = "Move", Exposed = true, NoMemoryBlock = false)]
-        public static void MoveMemory(MemoryBlock memory, AsquellObj from, AsquellObj to)
+        public static void MoveMemory(MemoryBlock memory, AsquellObj to, AsquellObj from)
         {
             if (from.Type == AsquellObjectType.RunTimeValue)
             {
